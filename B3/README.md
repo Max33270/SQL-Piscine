@@ -1,6 +1,12 @@
+```SQL
 CREATE DATABASE IF NOT EXISTS APPLE;
 USE APPLE;
+```
 
+# 1 - Products
+
+## 1.1 - Table Creation
+```SQL
 CREATE TABLE IF NOT EXISTS Products
 (
 	product_id INT AUTO_INCREMENT NOT NULL,
@@ -12,7 +18,9 @@ CREATE TABLE IF NOT EXISTS Products
 )
 ENGINE = INNODB
 ENCRYPTION='N';
-
+```
+## 1.2 - Table Data
+```SQL
 INSERT INTO APPLE.Products (product_name, product_category, product_price, product_stock)
 	VALUES ('iPhone 13 Pro Max', 1, 958, 10);
 INSERT INTO APPLE.Products (product_name, product_category, product_price, product_stock)
@@ -25,9 +33,17 @@ INSERT INTO APPLE.Products (product_name, product_category, product_price, produ
 	VALUES ('Macbook Pro 16', 2, 2529, 7);
 INSERT INTO APPLE.Products (product_name, product_category, product_price, product_stock)
 	VALUES ('HomePod Mini', 3, 99, 69);
-    
-#SELECT * FROM Products;
+```    
 
+## 1.3 - Table Display
+```SQL
+SELECT * FROM Products;
+```
+
+# 2 - Categories
+
+## 2.1 - Table Creation
+```SQL
 CREATE TABLE IF NOT EXISTS Categories
 (
 	category_id INT AUTO_INCREMENT NOT NULL,
@@ -38,7 +54,10 @@ CREATE TABLE IF NOT EXISTS Categories
 )
 ENGINE = INNODB
 ENCRYPTION='N';
+```
 
+## 2.2 - Table Data
+```SQL
 INSERT INTO Apple.Categories (category_id, category_name, sum_product_price , sum_product_stock)
 	VALUES 
 	(
@@ -63,10 +82,14 @@ INSERT INTO Apple.Categories (category_id, category_name, sum_product_price, sum
     (SELECT SUM(product_price*product_stock) FROM Apple.Products WHERE product_category = 3), 
     (SELECT SUM(product_stock) FROM Apple.Products WHERE product_category = 3)
     );
+```
 
-
-#SELECT * FROM Categories;
-
+## 2.3 - Table Display
+```SQL
+SELECT * FROM Categories;
+```
+```SQL
 SELECT A.*, B.category_name 
 FROM Apple.Products A
 JOIN Apple.Categories B ON (A.product_category = B.category_id)
+```
