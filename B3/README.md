@@ -161,13 +161,13 @@ SELECT *, TIMESTAMPDIFF(YEAR, user_birthdate, CURDATE()) AS AGE FROM Apple.Users
 CREATE TABLE IF NOT EXISTS CMD 
 (
 	cmd_id INT AUTO_INCREMENT NOT NULL,
-    cmd_user_id INT NOT NULL,
+	cmd_user_id INT NOT NULL,
 	cmd_total_ammount DECIMAL(10,2) NOT NULL,
-    cmd_nb_product MEDIUMINT NOT NULL,
+	cmd_nb_product MEDIUMINT NOT NULL,
 	cmd_date DATE NOT NULL,
-    cmd_categories VARCHAR(255) NOT NULL,
-    cmd_category1_ammount DECIMAL(10,2) NULL,
-    cmd_category2_ammount DECIMAL(10,2) NULL,
+	cmd_categories VARCHAR(255) NOT NULL,
+	cmd_category1_ammount DECIMAL(10,2) NULL,
+	cmd_category2_ammount DECIMAL(10,2) NULL,
 	cmd_category3_ammount DECIMAL(10,2) NULL,
 	PRIMARY KEY (cmd_id),
 	FOREIGN KEY (cmd_user_id) REFERENCES Apple.Users(user_id)
@@ -175,4 +175,3 @@ CREATE TABLE IF NOT EXISTS CMD
 ENGINE = INNODB
 ENCRYPTION='N';
 ```
-
