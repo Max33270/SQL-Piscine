@@ -90,3 +90,34 @@ SELECT A.*, B.category_name
 FROM Apple.Products A
 JOIN Apple.Categories B ON (A.product_category = B.category_id)
 ```
+# 3 - Users
+
+## 3.1 - Table Creation
+
+```SQL
+CREATE TABLE IF NOT EXISTS USERS 
+(
+	user_id INT AUTO_INCREMENT NOT NULL,
+	user_lastname VARCHAR(255) NOT NULL,
+	user_firstname VARCHAR(255) NOT NULL,
+	user_phone VARCHAR(13) NULL,
+	user_address VARCHAR(255) NULL,
+	user_birthdate DATE NULL,
+	PRIMARY KEY (user_id)
+)
+ENGINE = INNODB
+ENCRYPTION='N';
+```
+
+## 3.2 - Table Data
+```SQL
+INSERT INTO Apple.Users (user_lastname, user_firstname, user_phone, user_address, user_birthdate) VALUES
+("DOUBST", "Max", "+33666666666", "25 rue du Paradis", 20020923),
+("DOUBST", "Toto", "+33777777777", "25 rue de l'Enfer", 20030923);
+```
+
+## 3.3 - Table Display
+```SQL
+#SELECT * FROM Users;
+SELECT *, TIMESTAMPDIFF(YEAR, user_birthdate, CURDATE()) AS AGE FROM Apple.Users;
+```
