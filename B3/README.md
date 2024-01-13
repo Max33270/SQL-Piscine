@@ -19,6 +19,9 @@ CREATE TABLE IF NOT EXISTS Products
 ENGINE = INNODB
 ENCRYPTION='N';
 ```
+```SQL
+ALTER TABLE Apple.Products ADD product_percentage DECIMAL(8,2) NULL;
+```
 ## 1.2 - Table Data
 ```SQL
 INSERT INTO APPLE.Products (product_name, product_category, product_price, product_stock)
@@ -54,6 +57,36 @@ CREATE TABLE IF NOT EXISTS Categories
 )
 ENGINE = INNODB
 ENCRYPTION='N';
+```
+```SQL
+ALTER TABLE Apple.Categories ADD category_percentage DECIMAL(8,2) NULL;
+
+WITH CATEGORY_1 AS (
+	SELECT ROUND((sum_product_price) * 100 / (SELECT SUM(sum_product_price) FROM Apple.Categories), 2) AS percentage
+	FROM Apple.Categories
+	WHERE category_id = 1
+)
+UPDATE Apple.Categories 
+SET category_percentage = (SELECT percentage FROM CATEGORY_1)
+WHERE category_id = 1;
+
+WITH CATEGORY_2 AS (
+	SELECT ROUND((sum_product_price) * 100 / (SELECT SUM(sum_product_price) FROM Apple.Categories), 2) AS percentage
+	FROM Apple.Categories
+	WHERE category_id = 2
+)
+UPDATE Apple.Categories 
+SET category_percentage = (SELECT percentage FROM CATEGORY_2)
+WHERE category_id = 2;
+
+WITH CATEGORY_3 AS (
+	SELECT ROUND((sum_product_price) * 100 / (SELECT SUM(sum_product_price) FROM Apple.Categories), 2) AS percentage
+	FROM Apple.Categories
+	WHERE category_id = 3
+)
+UPDATE Apple.Categories 
+SET category_percentage = (SELECT percentage FROM CATEGORY_3)
+WHERE category_id = 3;
 ```
 
 ## 2.2 - Table Data
@@ -118,6 +151,28 @@ INSERT INTO Apple.Users (user_lastname, user_firstname, user_phone, user_address
 
 ## 3.3 - Table Display
 ```SQL
-#SELECT * FROM Users;
 SELECT *, TIMESTAMPDIFF(YEAR, user_birthdate, CURDATE()) AS AGE FROM Apple.Users;
 ```
+
+# 4 - CMD
+
+## 4.1 - Table Creation
+```SQL
+CREATE TABLE IF NOT EXISTS CMD 
+(
+	cmd_id INT AUTO_INCREMENT NOT NULL,
+    cmd_user_id INT NOT NULL,
+	cmd_total_ammount DECIMAL(10,2) NOT NULL,
+    cmd_nb_product MEDIUMINT NOT NULL,
+	cmd_date DATE NOT NULL,
+    cmd_categories VARCHAR(255) NOT NULL,
+    cmd_category1_ammount DECIMAL(10,2) NULL,
+    cmd_category2_ammount DECIMAL(10,2) NULL,
+	cmd_category3_ammount DECIMAL(10,2) NULL,
+	PRIMARY KEY (cmd_id),
+	FOREIGN KEY (cmd_user_id) REFERENCES Apple.Users(user_id)
+)
+ENGINE = INNODB
+ENCRYPTION='N';
+```
+
