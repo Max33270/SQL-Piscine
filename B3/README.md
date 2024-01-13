@@ -12,8 +12,8 @@ CREATE TABLE IF NOT EXISTS Products
 	product_id INT AUTO_INCREMENT NOT NULL,
 	product_name VARCHAR(255) NOT NULL,
 	product_category MEDIUMINT NOT NULL,
-    product_price NUMERIC(8,2) NULL,
-    product_stock NUMERIC(8) NULL,
+	product_price NUMERIC(8,2) NULL,
+	product_stock NUMERIC(8) NULL,
 	PRIMARY KEY (product_id)
 )
 ENGINE = INNODB
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS Categories
 (
 	category_id INT AUTO_INCREMENT NOT NULL,
 	category_name VARCHAR(255) NOT NULL,
-    sum_product_price NUMERIC(8,2) NULL,
+	sum_product_price NUMERIC(8,2) NULL,
 	sum_product_stock BIGINT NULL,
 	PRIMARY KEY (category_id)
 )
@@ -58,30 +58,27 @@ ENCRYPTION='N';
 
 ## 2.2 - Table Data
 ```SQL
-INSERT INTO Apple.Categories (category_id, category_name, sum_product_price , sum_product_stock)
-	VALUES 
-	(
-    1, 
+INSERT INTO Apple.Categories (category_id, category_name, sum_product_price , sum_product_stock) 
+VALUES (
+	1, 
     'Cellphone', 
     (SELECT SUM(product_price*product_stock) FROM Apple.Products WHERE product_category = 1), 
     (SELECT SUM(product_stock) FROM Apple.Products WHERE product_category = 1)
-    );
+);
 INSERT INTO Apple.Categories (category_id, category_name, sum_product_price, sum_product_stock)
-	VALUES 
-	(
+VALUES (
     2, 
     'PC', 
     (SELECT SUM(product_price*product_stock) FROM Apple.Products WHERE product_category = 2), 
     (SELECT SUM(product_stock) FROM Apple.Products WHERE product_category = 2)
-    );
+);
 INSERT INTO Apple.Categories (category_id, category_name, sum_product_price, sum_product_stock)
-	VALUES 
-	(
+VALUES (
     3, 
     'Speaker', 
     (SELECT SUM(product_price*product_stock) FROM Apple.Products WHERE product_category = 3), 
     (SELECT SUM(product_stock) FROM Apple.Products WHERE product_category = 3)
-    );
+);
 ```
 
 ## 2.3 - Table Display
